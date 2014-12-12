@@ -4,7 +4,7 @@
 
 (provide z3%)
 
-(define-runtime-path z3 (build-path ".." ".." ".." "bin" "z3"))
+(define-runtime-path z3 (build-path ".." ".." ".." "bin" "z3.exe"))
 
 (define z3%
   (class* smt% (writable<%>) (inspect (make-inspector))
