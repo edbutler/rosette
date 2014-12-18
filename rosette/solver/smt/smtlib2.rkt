@@ -38,9 +38,22 @@
     [(list _ info) info]
     [other (error 'read-info "expected info, given ~a" other)]))
 
+(define print-smt?
+  (make-parameter #f 
+                  (lambda (b) 
+                    (unless (boolean? b)
+                      (raise-argument-error 'current-bitwidth "boolean" b))
+                    b)))
+
 (define-syntax-rule (print-cmd arg ...)
-  (begin 
-    ;(printf  arg ...)
+  (begin
+    ; if parameter is set, dump generated smt to stdout for debugging
+    (if (print-smt?)
+        (begin
+          (printf  arg ...)
+          (printf "\n"))
+        '())
+    (flush-output (current-output-port))
     (fprintf (smt-port) arg ...)))
 
 ; Prints all SMT commands issued during the dynamic
