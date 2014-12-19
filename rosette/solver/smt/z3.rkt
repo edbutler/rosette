@@ -4,7 +4,9 @@
 
 (provide z3%)
 
-(define-runtime-path z3 (build-path ".." ".." ".." "bin" "z3.exe"))
+(define-runtime-path z3
+  (let ([bin (if (equal? (system-type 'os) 'windows) "z3.exe" "z3")])
+    (build-path ".." ".." ".." "bin" bin)))
 
 (define z3%
   (class* smt% (writable<%>) (inspect (make-inspector))
